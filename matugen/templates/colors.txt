@@ -1,0 +1,14 @@
+{
+	"light": {
+		<* for name, value in colors *>
+		"{{name | camel_case}}": "{{value.light.hex}}",
+		<* endfor *>
+		"": ""
+	},
+	"dark": {
+		<* for name, value in colors *>
+		"{{name | camel_case}}": "{{value.dark.hex}}",
+		<* endfor *>
+		"": ""
+	}
+}

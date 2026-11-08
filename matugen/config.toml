@@ -1,0 +1,52 @@
+[config]
+version_check = false
+
+[config.custom_colors]
+red      = { color = "#e06c75", blend = true }
+maroon   = { color = "#c96b6f", blend = true }
+orange   = { color = "#d19a66", blend = true }
+yellow   = { color = "#e5c07b", blend = true }
+green    = { color = "#98c379", blend = true }
+mint     = { color = "#5fd9a4", blend = true }
+teal     = { color = "#56b6c2", blend = true }
+sky      = { color = "#7dcfff", blend = true }
+blue     = { color = "#61afef", blend = true }
+purple   = { color = "#c678dd", blend = true }
+lavender = { color = "#b4befe", blend = true }
+pink     = { color = "#f5c2e7", blend = true }
+
+[templates.hyprland]
+input_path = 'templates/hyprland.txt'
+output_path = '~/.config/hypr/colors.lua'
+
+[templates.m3colors]
+input_path = 'templates/colors.txt'
+output_path = '~/.local/state/materialshell/colorscheme.json'
+
+[templates.ghostty_light]
+input_path = 'templates/ghostty_light.txt'
+output_path = '~/.config/ghostty/themes/Material You Light'
+
+[templates.ghostty_dark]
+input_path = 'templates/ghostty_dark.txt'
+output_path = '~/.config/ghostty/themes/Material You Dark'
+post_hook = 'pkill -SIGUSR2 ghostty'
+
+[templates.zen-userchrome]
+input_path = './templates/zen_userchrome.txt'
+output_path = '~/.config/zen/a3tlcjjd.Default (release)/chrome/userChrome.css'
+
+[templates.zen-usercontent]
+input_path = './templates/zen_usercontent.txt'
+output_path = '~/.config/zen/a3tlcjjd.Default (release)/chrome/userContent.css'
+
+[templates.btop]
+input_path = './templates/btop.txt'
+output_path = '~/.config/btop/themes/material-you.theme'
+post_hook = 'pkill -USR2 btop || true'
+
+[templates.neovim]
+input_path = './templates/neovim.lua'
+output_path = '~/.config/nvim/colors/material_you.lua'
+post_hook = 'pkill -SIGUSR1 nvim'
+

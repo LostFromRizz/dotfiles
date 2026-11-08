@@ -1,0 +1,4 @@
+font-size = 16
+background-opacity = 0.8
+window-inherit-working-directory = false
+theme = dark:Material You Dark,light:Material You Light
