@@ -72,6 +72,14 @@ Scaffold {
                     onClicked: {
                         viewModel.toggleConnect(modelData);
                     }
+
+                    BluetoothPageViewModel.ConnectionFailureListener {
+                        device: pairedDevice.modelData
+                        enabled: pairedDevice.checked
+                        onFailedToConnect: {
+                            pairedDevice.checked = false;
+                        }
+                    }
                 }
             }
 

@@ -5,8 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 
 # type starship_zle-keymap-select >/dev/null || \
 #   {
@@ -28,7 +26,7 @@ compinit
 # alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 # PS1='[\u@\h \W]\$ '
-
+alias ls='ls -a'
 alias icat="viu"
 alias v="nvim"
 alias py="source ~/dev/python/bin/activate"
@@ -69,7 +67,7 @@ function shift-mode() {
 
 function ssh-start() {	
 eval "$(ssh-agent -s)"
-ssh-add ~/github
+ssh-add ~/lostfromrizz-git
 }
 
 function for-file() {
@@ -88,11 +86,43 @@ fpath=(~/.zsh/completions $fpath)
 . $HOME/.cargo/env
 
 function cargo() {
-    local project_name=${PWD##*/}
-    CARGO_TARGET_DIR="$BUILDS/$project_name" command cargo "$@"
+    command cargo "$@"
+    local exit_code=$?
+
+    if [[ $exit_code -eq 0 && "$1" == "new" ]]; then
+      local project_path="${@: -1}"
+      local name="${project_path:t}"      
+
+      command mkdir -p "$project_path/.cargo"
+
+      while (($#)); do
+          case "$1" in
+              --name)
+                  name="$2"
+                  shift 2
+                  ;;
+              *)
+                  shift
+                  ;;
+          esac
+      done 
+
+        cat > "$project_path/.cargo/config.toml" <<EOF
+[build]
+target-dir = "$BUILDS/$name"
+EOF
+
+        command rm -rf "$project_path/target"
+    fi
+
+
+    return $exit_code
 }
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
